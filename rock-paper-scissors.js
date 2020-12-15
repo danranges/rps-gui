@@ -99,7 +99,4 @@ function resetBtn(){
     newGame.addEventListener('click', () => {
         window.location.reload()
     })
-
-}
-
 }
