@@ -1,4 +1,21 @@
 const choices = ['rock', 'paper', 'scissors'];
+const btnRock = document.querySelector('#btn-rock')
+const btnPaper = document.querySelector('#btn-paper')
+const btnScissors = document.querySelector('#btn-scissors')
+const round = document.querySelector('#round')
+const yourScore = document.querySelector('#your-score')
+const theirScore = document.querySelector('#their-score')
+const scoreContainer = document.querySelector('#score-container')
+
+btnRock.addEventListener('click', () => {
+    playRound(computerPlay(), choices[0])
+})
+btnPaper.addEventListener('click', () => {
+    playRound(computerPlay(), choices[1])
+})
+btnScissors.addEventListener('click', () => {
+    playRound(computerPlay(), choices[2])
+})
 
 function computerPlay() {
     return choices[randomMove(0, 2)];
@@ -8,64 +25,81 @@ function randomMove(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function playerPlay() {
-    let playerMove = window.prompt('Rock, paper, or scissors?');
-
-    if (choices.includes(playerMove.toLowerCase())) {
-        return playerMove.toLowerCase();
-    } else {
-        alert ('Please enter a valid selection.');
-        playerPlay();
-    }
-}
-
 function playRound(computerSelection, playerSelection) {
     let winLoss = 0;
 
     if (computerSelection == playerSelection) {
-        console.log(`It's a tie! You both picked ${computerSelection}! Please pick again.`);
+        round.textContent = `It's a tie! You both picked ${computerSelection}! Please pick again.`;
     } else if (computerSelection === 'rock' && playerSelection === 'paper') {
         winLoss = 1;
-        console.log('Paper covers rock! You win!');
+        round.textContent = 'Paper covers rock! You win!';
     } else if (computerSelection === 'rock' && playerSelection === 'scissors') {
         winLoss = 2;
-        console.log('Rock crushes scissors! You lose!');
+        round.textContent = 'Rock crushes scissors! You lose!';
     } else if (computerSelection === 'paper' && playerSelection === 'rock') {
         winLoss = 2;
-        console.log('Paper covers rock! You lose!');
+        round.textContent = 'Paper covers rock! You lose!';
     } else if (computerSelection === 'paper' && playerSelection === 'scissors') {
         winLoss = 1;
-        console.log('Scissors cut paper! You win!');
+        round.textContent = 'Scissors cut paper! You win!';
     } else if (computerSelection === 'scissors' && playerSelection === 'rock') {
         winLoss = 1;
-        console.log('Rock crushes scissors! You win!');
+        round.textContent = 'Rock crushes scissors! You win!';
     } else if (computerSelection === 'scissors' && playerSelection === 'paper') {
         winLoss = 2;
-        console.log('Scissors cut paper! You lose!');
+        round.textContent = 'Scissors cut paper! You lose!';
     }
-
-    return winLoss;
+    
+    scoreKeeper(winLoss);
 }
 
-function game() {
-    let wins = 0;
-    let losses = 0;
 
-    while ((wins + losses) < 5) {
-        let result = playRound(computerPlay(), playerPlay());
-        
-        if (result == 1) {
-            ++wins;
-        } else if (result == 2) {
-            ++losses;
+let wins = 0
+let losses = 0
+
+
+function scoreKeeper(outcome) {
+    if (outcome === 1){
+        ++wins;
+        yourScore.textContent = `You: ${wins}`;
+    } else if (outcome === 2) {
+        ++losses;
+        theirScore.textContent = `Them: ${losses}`;
+    }
+    
+    console.log (`${wins} - ${losses}`)
+    finalScoreCheck();
+} 
+
+function finalScoreCheck() {
+    
+    if (wins === 5 || losses ===5) {
+        if (wins === 5) {
+            round.textContent =`You win! The final score is ${wins} to ${losses}`
+        } else if (losses === 5) {
+            round.textContent = `You lose. The final score is ${wins} to ${losses}`
         }
+        gameOver()
     }
 
-    if (wins > losses) {
-        console.log(`Congrats! You win, ${wins} to ${losses}!`);
-    } else if (losses > wins) {
-        console.log(`Sorry! You lose, ${wins} games to ${losses}.`);
-    }
+function gameOver() {
+    btnRock.disabled = true
+    btnPaper.disabled = true
+    btnScissors.disabled = true
+    resetBtn()
 }
 
-//game();
+function resetBtn(){
+    const newGame = document.createElement('button')
+    newGame.classList.add('scores')
+    newGame.id = 'new-game'
+    newGame.textContent = 'Play again'
+    scoreContainer.appendChild(newGame)
+
+    newGame.addEventListener('click', () => {
+        window.location.reload()
+    })
+
+}
+
+}
