@@ -81,6 +81,7 @@ function finalScoreCheck() {
         }
         gameOver()
     }
+}
 
 function gameOver() {
     btnRock.disabled = true
