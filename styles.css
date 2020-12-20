@@ -54,15 +54,15 @@ main {
 }
 
 #btn-rock {
-  background-image: url("/icons/fist.svg");
+  background-image: url("/icons/fist.SVG");
 }
 
 #btn-paper {
-  background-image: url("/icons/palm.svg");
+  background-image: url("/icons/palm.SVG");
 }
 
 #btn-scissors {
-  background-image: url("/icons/peace-sign.svg");
+  background-image: url("/icons/peace-sign.SVG");
 }
 
 .results {
