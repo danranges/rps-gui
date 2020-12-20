@@ -38,8 +38,7 @@ main {
   width: 200px;
   height: 200px;
   margin: 20px;
-  text-align: left;
-  text-indent: -9999px;
+  text-align: center;
   border-style: none;
   border-radius: 10%;
   background-repeat: no-repeat;
@@ -65,12 +64,16 @@ main {
 #btn-scissors {
   background-image: url("icons/peace-sign.SVG");
 }
+*/
+
+.icons {
+  width: 90%;
+}
 
 .results {
   display: flex;
   justify-content: center;
 }
-*/
 
 .round {
   display: flex;
